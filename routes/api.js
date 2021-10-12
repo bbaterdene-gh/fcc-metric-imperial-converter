@@ -27,7 +27,7 @@ module.exports = function (app) {
       return res.send('invalid number')
     }
 
-    let returnNum = convertHandler.convert(initNum, initUnit).toFixed(5)
+    let returnNum = Number(convertHandler.convert(initNum, initUnit).toFixed(5))
     const returnUnit = convertHandler.getReturnUnit(initUnit)
 
     const string = convertHandler.getString(initNum, initUnit, returnNum, returnUnit)
