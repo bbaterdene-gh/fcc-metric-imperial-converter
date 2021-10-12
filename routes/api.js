@@ -11,8 +11,10 @@ module.exports = function (app) {
     let { input } = req.query
 
     const initNum = convertHandler.getNum(input)
-    const initUnit = convertHandler.getUnit(input)
-
+    let initUnit = convertHandler.getUnit(input)
+    if ( initUnit === 'l') {
+      initUnit = 'L'
+    }
     if (convertHandler.spellOutUnit(initUnit) === 'invalid unit' && isNaN(initNum) ) {
       return res.send('invalid number and unit')
     }
