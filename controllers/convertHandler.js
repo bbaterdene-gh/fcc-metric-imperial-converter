@@ -3,14 +3,21 @@ const { init } = require("express/lib/application");
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    let result = input.split(/(\d)/)
-    return result[1] || 1;
+    const [, ...result] = input.match(/([\d.,]*)([\s\S]*)/)
+    const num = result.slice(0, result.length - 1).join('') || 1;
+
+    return Number(num)
   };
   
   this.getUnit = function(input) {
-    let result = input.split(/(\d)/)
-    
-    return result[2] || result[0];
+    const [, ...result] = input.match(/([\d.,]*)([\s\S]*)/)
+    let unit = result[ result.length - 1 ]
+
+    if ( unit !== 'L') {
+      unit = unit.toLowerCase()
+    }
+
+    return unit
   };
   
   this.getReturnUnit = function(initUnit) {
@@ -42,7 +49,7 @@ function ConvertHandler() {
 
   this.spellOutUnit = function(unit) {
     let result;
-    switch (initUnit) {
+    switch (unit) {
       case 'gal':
         result = 'gallons'
         break

@@ -10,12 +10,25 @@ module.exports = function (app) {
   app.get('/api/convert', (req, res) => {
     let { input } = req.query
 
-    const initNum = Number(convertHandler.getNum(input)).toFixed(5)
+    const initNum = convertHandler.getNum(input)
     const initUnit = convertHandler.getUnit(input)
-    const returnNum = Number(convertHandler.convert(initNum, initUnit)).toFixed(5)
+
+    if (convertHandler.spellOutUnit(initUnit) === 'invalid unit' && isNaN(initNum) ) {
+      return res.send('invalid number and unit')
+    }
+
+    if (convertHandler.spellOutUnit(initUnit) === 'invalid unit') {
+      return res.send('invalid unit')
+    }
+
+    if (isNaN(initNum)) {
+      return res.send('invalid number')
+    }
+    console.log(initNum)
+    let returnNum = convertHandler.convert(initNum, initUnit).toFixed(5)
     const returnUnit = convertHandler.getReturnUnit(initUnit)
     const string = convertHandler.getString(initNum, initUnit, returnNum, returnUnit)
-    res.json({
+    return res.json({
       initNum,
       initUnit,
       returnNum,
