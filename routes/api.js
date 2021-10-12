@@ -24,9 +24,10 @@ module.exports = function (app) {
     if (isNaN(initNum)) {
       return res.send('invalid number')
     }
-    console.log(initNum)
+
     let returnNum = convertHandler.convert(initNum, initUnit).toFixed(5)
     const returnUnit = convertHandler.getReturnUnit(initUnit)
+
     const string = convertHandler.getString(initNum, initUnit, returnNum, returnUnit)
     return res.json({
       initNum,

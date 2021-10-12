@@ -15,6 +15,8 @@ function ConvertHandler() {
 
     if ( unit !== 'L') {
       unit = unit.toLowerCase()
+    } else {
+      unit = unit.toUpperCase()
     }
 
     return unit
