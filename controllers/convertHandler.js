@@ -1,15 +1,19 @@
 const { init } = require("express/lib/application");
+const { evaluate } = require('mathjs')
 
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    const [, ...result] = input.match(/([\d.,]*)([\s\S]*)/)
+    const [, ...result] = input.match(/([\d.,/]*)([\s\S]*)/)
     const num = result.slice(0, result.length - 1).join('') || 1;
-
-    return Number(num)
+    if (num != 1 && num.split('/').length > 2 ) {
+      return new Error("It's double fraction")
+    }
+    return evaluate(num)
   };
   
   this.getUnit = function(input) {
+    const validUnits = ['gal', 'L', 'mi', 'km', 'lbs', 'kg']
     const [, ...result] = input.match(/([\d.,]*)([\s\S]*)/)
     let unit = result[ result.length - 1 ]
 
@@ -17,6 +21,10 @@ function ConvertHandler() {
       unit = unit.toLowerCase()
     } else {
       unit = unit.toUpperCase()
+    }
+
+    if( !validUnits.includes(unit) ) {
+      return new Error('invalid unit')
     }
 
     return unit
