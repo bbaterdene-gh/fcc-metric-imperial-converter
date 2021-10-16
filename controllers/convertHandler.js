@@ -17,7 +17,7 @@ function ConvertHandler() {
     const [, ...result] = input.match(/([\d.,/]*)([\s\S]*)/)
     let unit = result[ result.length - 1 ]
 
-    if ( unit !== 'L') {
+    if ( unit.toUpperCase() !== 'L' ) {
       unit = unit.toLowerCase()
     } else {
       unit = unit.toUpperCase()
