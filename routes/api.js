@@ -12,9 +12,7 @@ module.exports = function (app) {
 
     const initNum = convertHandler.getNum(input)
     let initUnit = convertHandler.getUnit(input)
-    if ( initUnit === 'l') {
-      initUnit = 'L'
-    }
+
     if (convertHandler.spellOutUnit(initUnit) === 'invalid unit' && isNaN(initNum) ) {
       return res.send('invalid number and unit')
     }
@@ -35,7 +33,7 @@ module.exports = function (app) {
       initNum,
       initUnit,
       returnNum,
-      returnUnit,
+      returnUnit: returnUnit.toLowerCase(),
       string,
     })
   })
