@@ -25,15 +25,15 @@ module.exports = function (app) {
       return res.send('invalid number')
     }
 
-    let returnNum = Number(convertHandler.convert(initNum, initUnit).toFixed(5))
+    let returnNum = convertHandler.convert(initNum, initUnit).toFixed(5)
     const returnUnit = convertHandler.getReturnUnit(initUnit)
 
     const string = convertHandler.getString(initNum, initUnit, returnNum, returnUnit)
     return res.json({
       initNum,
       initUnit,
-      returnNum,
-      returnUnit: returnUnit.toLowerCase(),
+      returnNum: Number(returnNum),
+      returnUnit,
       string,
     })
   })
