@@ -14,7 +14,7 @@ function ConvertHandler() {
   
   this.getUnit = function(input) {
     const validUnits = ['gal', 'L', 'mi', 'km', 'lbs', 'kg']
-    const [, ...result] = input.match(/([\d.,]*)([\s\S]*)/)
+    const [, ...result] = input.match(/([\d.,/]*)([\s\S]*)/)
     let unit = result[ result.length - 1 ]
 
     if ( unit !== 'L') {
